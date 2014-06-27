@@ -1,4 +1,13 @@
-<p>
-  Copyright &copy; {{ site.time | date: "%Y" }} - {{ site.author }} -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
+Copyright &copy; {{ site.time | date: "%Y" }}
+{% if site.author %}
+    {{ site.author }}
+{% elsif site.authors %}
+    {% for author in site.authors %}
+          <span class="author">
+            <img src="http://avatars.io/twitter/{{ author[0] }}">
+            <a href="https://twitter.com/{{ author[0] }}">
+                 @{{ author[1] }}</a></span>
+    {% endfor %}
+{% else %}
+    {{ site.title }}
+{% endif %}
