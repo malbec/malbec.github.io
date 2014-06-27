@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: 
-
-Sitemap: http://malbec.github.io/sitemap.xml 

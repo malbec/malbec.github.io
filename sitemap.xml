@@ -2,31 +2,26 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   
-  <url>
-    <loc>http://malbec.github.io/blog/2014/06/27/test-vlad-post/</loc>
-    <lastmod>2014-06-27T18:44:58-03:00</lastmod>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>http://malbec.github.io/blog/2014/06/27/this-has-a-rather-long-title/</loc>
-    <lastmod>2014-06-27T16:25:54-03:00</lastmod>
-    <priority>0.8</priority>
-  </url>
-  
   
   <url>
     <loc>http://malbec.github.io/blog/archives/</loc>
-    <lastmod>2014-06-27T18:45:40-03:00</lastmod>
+    <lastmod>2014-06-27T19:05:04-03:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://malbec.github.io/</loc>
-    <lastmod>2014-06-27T18:45:40-03:00</lastmod>
+    <lastmod>2014-06-27T19:05:04-03:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+  
+  <url>
+    <loc>http://malbec.github.io/blog/categories/</loc>
+    <lastmod>2014-06-27T19:05:04-03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   
   
