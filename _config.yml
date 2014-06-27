@@ -5,7 +5,10 @@
 url: http://malbec.github.io
 title: malbec blog
 subtitle: Un blog sobre medios y software libre
-author: Niv Sardi y Vladimir Di Fiore
+authors:
+  xaiki: Niv Sardi
+  vdifiore: Vladimir Di Fiore
+
 simple_search: https://www.google.com/search
 description:
 
