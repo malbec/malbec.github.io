@@ -180,6 +180,7 @@ task :new_md_post, :title do |t, args|
   end
   puts "Creating new post: #{filename}"
   open(filename, 'w') do |post|
+    post.puts "#+OPTIONS: toc:nil"
     post.puts "---"
     post.puts "layout: post"
     post.puts "title: \"#{title.gsub(/&/,'&amp;')}\""
