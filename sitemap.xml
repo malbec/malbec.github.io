@@ -3,6 +3,12 @@
   
   
   <url>
+    <loc>http://malbec.github.io/blog/2014/06/27/test-vlad-post/</loc>
+    <lastmod>2014-06-27T18:44:58-03:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://malbec.github.io/blog/2014/06/27/this-has-a-rather-long-title/</loc>
     <lastmod>2014-06-27T16:25:54-03:00</lastmod>
     <priority>0.8</priority>
@@ -11,14 +17,14 @@
   
   <url>
     <loc>http://malbec.github.io/blog/archives/</loc>
-    <lastmod>2014-06-27T18:41:20-03:00</lastmod>
+    <lastmod>2014-06-27T18:45:40-03:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://malbec.github.io/</loc>
-    <lastmod>2014-06-27T18:41:20-03:00</lastmod>
+    <lastmod>2014-06-27T18:45:40-03:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
