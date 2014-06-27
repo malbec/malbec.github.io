@@ -22,9 +22,12 @@ blog_index_dir  = 'source'    # directory for your blog's index page (if you put
 deploy_dir      = "_deploy"   # deploy directory (for Github pages deployment)
 stash_dir       = "_stash"    # directory to stash posts for speedy generation
 posts_dir       = "_posts"    # directory for blog files
+org_posts_dir   = "org_posts" # directory for org blog files
 themes_dir      = ".themes"   # directory for blog files
-new_post_ext    = "markdown"  # default new post file extension when using the new_post task
-new_page_ext    = "markdown"  # default new page file extension when using the new_page task
+new_post_ext    = "org"       # default new post file extension when using the new_post task
+new_page_ext    = "org"       # default new page file extension when using the new_page task
+new_md_post_ext = "markdown"  # default new post file extension when using the new_post task
+new_md_page_ext = "markdown"  # default new page file extension when using the new_page task
 server_port     = "4000"      # port for preview server eg. localhost:4000
 
 if (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
@@ -93,6 +96,37 @@ task :preview do
   [jekyllPid, compassPid, rackupPid].each { |pid| Process.wait(pid) }
 end
 
+# usage rake org_config
+desc "Write org config in octopress.el"
+task :org_config do |args|
+  base_dir = File.dirname(__FILE__)
+  filename = "#{base_dir}/octopress.el"
+  if File.exist?(filename)
+    abort("rake aborted!") if ask("#{filename} already exists. Do you want to overwrite?", ['y', 'n']) == 'n'
+  end
+  puts "Creating new org config: #{filename}"
+  open(filename, 'w') do |config|
+    config.puts "(setq org-publish-project-alist"
+    config.puts "'((\"blog\" .  (:base-directory \"#{base_dir}/#{source_dir}/#{org_posts_dir}/\""
+    config.puts "                :base-extension \"org\""
+    config.puts "                :publishing-directory \"#{base_dir}/#{source_dir}/#{posts_dir}/\""
+    config.puts "                :sub-superscript \"\""
+    config.puts "                :recursive t"
+    config.puts "                :publishing-function org-html-publish-to-html"
+    config.puts "                :headline-levels 4"
+    config.puts "                :html-extension \"markdown\""
+    config.puts "                :body-only t))))"
+  end
+  puts "Now load it into your emacs configuration, or into a running emacs instance using:"
+  puts "  emacsclient --eval \"(load-file \\\"#{filename}\\\")\""
+  puts ""
+  puts "then generate your posts like always:"
+  puts "  rake new_post[\"Your Fancy Post Title\"]"
+  puts ""
+  puts "Edit the #{source_dir}/#{org_posts_dir}/DATE-title.org file to write your post."
+  puts "When done hit C-c C-e P p to export it."
+end
+
 # usage rake new_post[my-new-post] or rake new_post['my new post'] or rake new_post (defaults to "new-post")
 desc "Begin a new post in #{source_dir}/#{posts_dir}"
 task :new_post, :title do |t, args|
@@ -101,9 +135,46 @@ task :new_post, :title do |t, args|
   else
     title = get_stdin("Enter a title for your post: ")
   end
+  if args.author
+    author = args.author
+  else
+    author = ENV['USER']
+  end
+
+  raise "### You haven't set anything up yet. First run `rake install` to set up an Octopress theme." unless File.directory?(source_dir)
+  mkdir_p "#{source_dir}/#{org_posts_dir}"
+  filename = "#{source_dir}/#{org_posts_dir}/#{Time.now.strftime('%Y-%m-%d')}-#{title.to_url}.#{new_post_ext}"
+  if File.exist?(filename)
+    abort("rake aborted!") if ask("#{filename} already exists. Do you want to overwrite?", ['y', 'n']) == 'n'
+  end
+  puts "Creating new post: #{filename}"
+  open(filename, 'w') do |post|
+    post.puts "#+BEGIN_HTML"
+    post.puts "---"
+    post.puts "layout: post"
+    post.puts "title: \"#{title.gsub(/&/,'&amp;')}\""
+    post.puts "date: #{Time.now.strftime('%Y-%m-%d %H:%M:%S %z')}"
+    post.puts "author: #{author}"
+    post.puts "comments: true"
+    post.puts "categories: "
+    post.puts "---"
+    post.puts "#+END_HTML"
+  end
+  puts "Edit your new post using:"
+  puts "  emacsclient #{filename}"
+end
+
+# usage rake new_md_post[my-new-post] or rake new_md_post['my new post'] or rake new_md_post (defaults to "new-post")
+desc "Begin a new post in #{source_dir}/#{posts_dir}"
+task :new_md_post, :title do |t, args|
+  if args.title
+    title = args.title
+  else
+    title = get_stdin("Enter a title for your post: ")
+  end
   raise "### You haven't set anything up yet. First run `rake install` to set up an Octopress theme." unless File.directory?(source_dir)
   mkdir_p "#{source_dir}/#{posts_dir}"
-  filename = "#{source_dir}/#{posts_dir}/#{Time.now.strftime('%Y-%m-%d')}-#{title.to_url}.#{new_post_ext}"
+  filename = "#{source_dir}/#{posts_dir}/#{Time.now.strftime('%Y-%m-%d')}-#{title.to_url}.#{new_md_post_ext}"
   if File.exist?(filename)
     abort("rake aborted!") if ask("#{filename} already exists. Do you want to overwrite?", ['y', 'n']) == 'n'
   end
